@@ -226,6 +226,9 @@ class MessageEmbed {
           proxyIconURL: data.footer.proxyIconURL ?? data.footer.proxy_icon_url,
         }
       : null;
+    
+      //DISCORD.JS MANUAL PATCH
+      this.color = data.color || 0x00c8ff;
   }
 
   /**
@@ -398,6 +401,22 @@ class MessageEmbed {
    */
   setURL(url) {
     this.url = url;
+    return this;
+  }
+  /**
+   * Sets the color to represent a successful action
+   * @returns {MessageEmbed}
+   */
+  success(){
+    this.color = 0x4BB543;
+    return this;
+  }
+  /**
+   * Sets the color to represent a errored action
+   * @returns {MessageEmbed}
+   */
+  error(){
+    this.color = 0xff3333;
     return this;
   }
 

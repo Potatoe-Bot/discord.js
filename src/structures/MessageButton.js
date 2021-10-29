@@ -2,6 +2,7 @@
 
 const BaseMessageComponent = require('./BaseMessageComponent');
 const { RangeError } = require('../errors');
+const customIdRegistry = require("../registries/customid");
 const { MessageButtonStyles, MessageComponentTypes } = require('../util/Constants');
 const Util = require('../util/Util');
 
@@ -74,6 +75,18 @@ class MessageButton extends BaseMessageComponent {
    */
   setCustomId(customId) {
     this.customId = Util.verifyString(customId, RangeError, 'BUTTON_CUSTOM_ID');
+    return this;
+  }
+  /**
+   * Sets the custom data for a button
+   * @param {object} customData 
+   * @returns {MessageButton}
+   */
+  setCustomData(customData){
+    customData.userid = customData.interaction.user.id;
+    customData.group = customData.interaction.group;
+    customData.interaction = undefined;
+    this.setCustomId(customIdRegistry.add(customData));
     return this;
   }
 

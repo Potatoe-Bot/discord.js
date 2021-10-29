@@ -2,6 +2,7 @@
 
 const BaseMessageComponent = require('./BaseMessageComponent');
 const { MessageComponentTypes } = require('../util/Constants');
+const customIdRegistry = require("../registries/customid")
 const Util = require('../util/Util');
 
 /**
@@ -91,6 +92,16 @@ class MessageSelectMenu extends BaseMessageComponent {
    */
   setCustomId(customId) {
     this.customId = Util.verifyString(customId, RangeError, 'SELECT_MENU_CUSTOM_ID');
+    return this;
+  }
+
+  /**
+   * Sets custom data of this interaction
+   * @param {object} customData 
+   * @returns {MessageSelectMenu}
+   */
+  setCustomData(customData){
+    this.setCustomId(customIdRegistry.add(customData));
     return this;
   }
 

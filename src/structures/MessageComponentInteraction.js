@@ -4,6 +4,8 @@ const Interaction = require('./Interaction');
 const InteractionWebhook = require('./InteractionWebhook');
 const InteractionResponses = require('./interfaces/InteractionResponses');
 const { MessageComponentTypes } = require('../util/Constants');
+const customIdRegistry = require("../registries/customid");
+
 
 /**
  * Represents a message component interaction.
@@ -72,15 +74,21 @@ class MessageComponentInteraction extends Interaction {
 
   /**
    * The component which was interacted with
-   * @type {?(MessageActionRowComponent|APIMessageActionRowComponent)}
+   * @type {MessageActionRowComponent|APIMessageActionRowComponent}
    * @readonly
    */
   get component() {
-    return (
-      this.message.components
-        .flatMap(row => row.components)
-        .find(component => (component.customId ?? component.custom_id) === this.customId) ?? null
-    );
+    return this.message.components
+      .flatMap(row => row.components)
+      .find(component => (component.customId ?? component.custom_id) === this.customId);
+  }
+  /**
+   * Gets custom data
+   * @param {boolean} keepAlive 
+   * @returns {object | null}
+   */
+  resolveCustomData(keepAlive){
+    return customIdRegistry.resolve(this.customId, keepAlive)
   }
 
   /**
