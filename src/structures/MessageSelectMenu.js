@@ -101,6 +101,9 @@ class MessageSelectMenu extends BaseMessageComponent {
    * @returns {MessageSelectMenu}
    */
   setCustomData(customData){
+    customData.userid = customData.interaction.user.id;
+    customData.group = customData.interaction.id;
+    customData.interaction = undefined;
     this.setCustomId(customIdRegistry.add(customData));
     return this;
   }
