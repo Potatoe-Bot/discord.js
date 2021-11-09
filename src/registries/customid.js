@@ -1,10 +1,14 @@
-const timeout = 7*60_000;
+const timeout = 60e3;
+const loggingInterval = 15*60e3;
 class CustomIdRegistry extends Map{
     constructor(){
         super(...arguments);
         setInterval(()=>{
-            console.log(`CustomId GC: Rinsed ${this.deleteAll((key, value) => Date.now() > value.expires)} items, ${this.size} items remain`)
+            this.deleteAll((key, value) => Date.now() > value.expires)
         }, timeout/2)
+        setInterval(() => {
+            console.log(`CustomId: ${this.size} pairs stored, sequence no. ${this.seq}`)
+        }, loggingInterval)
         this.seq = 0;
     }
     deleteAll(fn){
@@ -20,7 +24,7 @@ class CustomIdRegistry extends Map{
         if(!keepEntry){
             this.delete(customid);
             if(value.group){
-                console.log("CustomId Group GC:" + this.deleteAll((key, _value) => _value.group === value.group))
+                this.deleteAll((key, _value) => _value.group === value.group);
             }
         }
         return value;
@@ -37,7 +41,7 @@ class CustomIdRegistry extends Map{
         if(!customData.expires){
             customData.expires = Date.now()+timeout;
         }else if(customData.expires < Date.now()){
-            throw new Error("Attempted to set am expired expiry time.")
+            throw new Error("Attempted to set an expired expiry time.")
         }
         let customId = Date.now() + '' + Math.random() + '' + Math.random() + '' + ((++this.seq)%10000);
         this.set(customId, customData);

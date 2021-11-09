@@ -5,6 +5,7 @@ const InteractionWebhook = require('./InteractionWebhook');
 const InteractionResponses = require('./interfaces/InteractionResponses');
 const { MessageComponentTypes } = require('../util/Constants');
 const customIdRegistry = require("../registries/customid");
+const { isObject } = require('util');
 
 
 /**
@@ -84,11 +85,17 @@ class MessageComponentInteraction extends Interaction {
   }
   /**
    * Gets custom data
-   * @param {boolean} keepAlive 
+   * @param {boolean?} keepAlive 
    * @returns {object | null}
    */
   resolveCustomData(keepAlive){
     return customIdRegistry.resolve(this.customId, keepAlive)
+  }
+  
+  get customData(){
+    let d = this.resolveCustomData(false)
+    if(!d) throw new Error("Could not resolve customData in getter")
+    return d;
   }
 
   /**

@@ -1466,6 +1466,7 @@ export class MessageComponentInteraction extends Interaction {
   public message: Message | APIMessage;
   public replied: boolean;
   public webhook: InteractionWebhook;
+  public customData: {userid:string, [x:string]:any};
   public resolveCustomData(keepAlive?: boolean): null | {userid:string, [x:string]:any};
   public inGuild(): this is InteractionResponses<'present'> & this;
   public inCachedGuild(): this is InteractionResponses<'cached'> & this;
