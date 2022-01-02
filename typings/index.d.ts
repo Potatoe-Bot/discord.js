@@ -19,7 +19,7 @@ import {
   underscore,
   userMention,
 } from '@discordjs/builders';
-import {PBOTUser} from "../../../src/Classes/PbotUser"
+import { PBOTUser } from '../../../src/Classes/PbotUser';
 import { Collection } from '@discordjs/collection';
 import {
   APIActionRowComponent,
@@ -1232,10 +1232,10 @@ export class LimitedCollection<K, V> extends Collection<K, V> {
   public static filterByLifetime<K, V>(options?: LifetimeFilterOptions<K, V>): SweepFilter<K, V>;
 }
 
-export class CustomIdRegistry extends Map{
+export class CustomIdRegistry extends Map {
   public constructor();
-  public resolve(customid:string):null|object;
-  public add(customData: {userid:string, [x:string]: any}):string;
+  public resolve(customid: string): null | object;
+  public add(customData: { userid: string; [x: string]: any }): string;
 }
 
 // This is a general conditional type utility that allows for specific union members to be extracted given
@@ -1430,7 +1430,7 @@ export class MessageButton extends BaseMessageComponent {
   public type: 'BUTTON';
   public url: string | null;
   public setCustomId(customId: string): this;
-  public setCustomData(customData: {interaction:Interaction, [x:string]:any}): this;
+  public setCustomData(customData: { interaction: Interaction; [x: string]: any }): this;
   public setDisabled(disabled?: boolean): this;
   public setEmoji(emoji: EmojiIdentifierResolvable): this;
   public setLabel(label: string): this;
@@ -1466,8 +1466,8 @@ export class MessageComponentInteraction extends Interaction {
   public message: Message | APIMessage;
   public replied: boolean;
   public webhook: InteractionWebhook;
-  public customData: {userid:string, [x:string]:any};
-  public resolveCustomData(keepAlive?: boolean): null | {userid:string, [x:string]:any};
+  public customData: { userid: string; [x: string]: any };
+  public resolveCustomData(keepAlive?: boolean): null | { userid: string; [x: string]: any };
   public inGuild(): this is InteractionResponses<'present'> & this;
   public inCachedGuild(): this is InteractionResponses<'cached'> & this;
   public inRawGuild(): this is InteractionResponses<'raw'> & this;
@@ -1527,7 +1527,10 @@ export class MessageEmbed {
   public static normalizeField(name: string, value: string, inline?: boolean): Required<EmbedFieldData>;
   public static normalizeFields(...fields: EmbedFieldData[] | EmbedFieldData[][]): Required<EmbedFieldData>[];
 }
-
+export class TemplateMessageEmbed extends MessageEmbed {
+  setColor(color: string | ColorResolvable): this;
+  render(data: { [attribute: string]; value: any }): MessageEmbed;
+}
 export class MessageFlags extends BitField<MessageFlagsString> {
   public static FLAGS: Record<MessageFlagsString, number>;
   public static resolve(bit?: BitFieldResolvable<MessageFlagsString, number>): number;
@@ -1617,7 +1620,7 @@ export class MessageSelectMenu extends BaseMessageComponent {
   public addOptions(...options: MessageSelectOptionData[] | MessageSelectOptionData[][]): this;
   public setOptions(...options: MessageSelectOptionData[] | MessageSelectOptionData[][]): this;
   public setCustomId(customId: string): this;
-  public setCustomData(customData: {interaction:Interaction, [x:string]:any}): this;
+  public setCustomData(customData: { interaction: Interaction; [x: string]: any }): this;
   public setDisabled(disabled?: boolean): this;
   public setMaxValues(maxValues: number): this;
   public setMinValues(minValues: number): this;

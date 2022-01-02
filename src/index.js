@@ -114,6 +114,7 @@ module.exports = {
   MessageCollector: require('./structures/MessageCollector'),
   MessageComponentInteraction: require('./structures/MessageComponentInteraction'),
   MessageEmbed: require('./structures/MessageEmbed'),
+  TemplateMessageEmbed: require('./structures/TemplateMessageEmbed'),
   MessageMentions: require('./structures/MessageMentions'),
   MessagePayload: require('./structures/MessagePayload'),
   MessageReaction: require('./structures/MessageReaction'),
