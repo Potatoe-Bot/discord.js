@@ -1529,7 +1529,7 @@ export class MessageEmbed {
 }
 export class TemplateMessageEmbed extends MessageEmbed {
   setColor(color: string | ColorResolvable): this;
-  render(data: { [attribute: string]; value: any }): MessageEmbed;
+  render(data: { [attribute: string]: any}): MessageEmbed;
 }
 export class MessageFlags extends BitField<MessageFlagsString> {
   public static FLAGS: Record<MessageFlagsString, number>;
